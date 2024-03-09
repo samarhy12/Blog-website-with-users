@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, redirect, url_for, flash, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
@@ -20,10 +21,10 @@ login_manager.init_app(app)
 avatars = Avatars(app)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
+# DATABASE_URL="postgres://postgesql_blog_websit_database_user:bIoXZNZTlkIET7qrPPtqZsqSmaR0l9GX@dpg-cnm9lfgcmk4c73agoti0-a.oregon-postgres.render.com/postgesql_blog_websit_database"
 
 ##CONFIGURE TABLES
 class User(UserMixin, db.Model):
